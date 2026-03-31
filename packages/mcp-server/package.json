@@ -1,0 +1,21 @@
+{
+  "name": "@threatlensai/mcp-server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "threatlens-mcp": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js",
+    "dev": "node --watch dist/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.4",
+    "@threatlensai/ai": "file:../../ai"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3"
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "name": "threatlensai",
+  "displayName": "ThreatLensAI",
+  "description": "AI-powered threat modeling in the editor",
+  "version": "0.1.0",
+  "publisher": "threatlensai",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": ["Other"],
+  "activationEvents": [
+    "onCommand:threatlens.analyzeWorkspace",
+    "onCommand:threatlens.showArchitectureFlow",
+    "onCommand:threatlens.chatWithReport"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "threatlens.analyzeWorkspace",
+        "title": "ThreatLens: Analyze Workspace"
+      },
+      {
+        "command": "threatlens.showArchitectureFlow",
+        "title": "ThreatLens: Show Architecture Flow (Mermaid)"
+      },
+      {
+        "command": "threatlens.chatWithReport",
+        "title": "ThreatLens: Chat with threat report"
+      }
+    ],
+    "configuration": {
+      "title": "ThreatLens",
+      "properties": {
+        "threatlens.anthropicApiKey": {
+          "type": "string",
+          "default": "",
+          "description": "Anthropic API key for Chat with report when ANTHROPIC_API_KEY is not set in the environment. Leave empty to use env.",
+          "scope": "machine-overridable"
+        },
+        "threatlens.ollamaModel": {
+          "type": "string",
+          "default": "",
+          "description": "Ollama model name for Chat with report (e.g. llama3.2). When set, chat uses local Ollama without needing OLLAMA_MODEL in the shell that launched the editor.",
+          "scope": "machine-overridable"
+        },
+        "threatlens.ollamaHost": {
+          "type": "string",
+          "default": "",
+          "description": "Ollama base URL for Chat with report (default http://127.0.0.1:11434). Optional; can also set OLLAMA_HOST in the environment.",
+          "scope": "machine-overridable"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "vscode:prepublish": "npm run compile"
+  },
+  "dependencies": {
+    "@threatlensai/ai": "file:../../ai"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.6.3"
+  }
+}

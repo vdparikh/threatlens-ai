@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Threat assessment</title>
+<style>
+  :root { font-family: system-ui, sans-serif; color: #1a1a1a; background: #f6f7fb; }
+  body { max-width: 1100px; margin: 0 auto; padding: 24px; }
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.15rem; margin-top: 2rem; border-bottom: 1px solid #ccd; padding-bottom: 6px; }
+  .meta { color: #555; font-size: 0.9rem; margin-bottom: 1.5rem; }
+  table.data { width: 100%; border-collapse: collapse; margin: 12px 0; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 2px rgba(0,0,0,.06); }
+  table.data th, table.data td { border: 1px solid #e2e5ee; padding: 10px 12px; text-align: left; font-size: 0.9rem; }
+  table.data th { background: #eef1f8; font-weight: 600; }
+  table.signals td .sev { display: inline-block; font-size: 0.72rem; font-weight: 700; padding: 3px 8px; border-radius: 999px; text-transform: uppercase; }
+  table.signals td .sev.crit { background: #3d0a0a; color: #fff; }
+  table.signals td .sev.high { background: #c0392b; color: #fff; }
+  table.signals td .sev.med { background: #d68910; color: #fff; }
+  table.signals td .sev.low { background: #949494; color: #fff; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 800px) { .grid2 { grid-template-columns: 1fr; } }
+  .card { background: #fff; border-radius: 10px; padding: 16px 18px; margin: 14px 0; box-shadow: 0 1px 3px rgba(0,0,0,.08); border: 1px solid #e8e8ef; }
+  .card-h { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .card-h h3 { flex: 1 1 200px; margin: 0; font-size: 1rem; }
+  .sev { font-size: 0.72rem; font-weight: 700; padding: 4px 10px; border-radius: 999px; text-transform: uppercase; letter-spacing: .04em; }
+  .sev.crit { background: #3d0a0a; color: #fff; }
+  .sev.high { background: #c0392b; color: #fff; }
+  .sev.med { background: #d68910; color: #fff; }
+  .sev.low { background: #949494; color: #fff; }
+  .stride { font-size: 0.75rem; background: #e8ecf7; padding: 4px 8px; border-radius: 6px; font-weight: 600; }
+  .desc { font-size: 0.92rem; line-height: 1.45; white-space: pre-wrap; }
+  .pills { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .pill { font-size: 0.75rem; background: #e8f4ea; color: #145a32; padding: 5px 10px; border-radius: 999px; border: 1px solid #c8e6c9; }
+  .pill.action { background: #e3f2fd; color: #0d47a1; border-color: #90caf9; }
+  .signal-row { margin-top: 10px; font-size: 0.82rem; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+  .signal-h { font-weight: 600; color: #444; }
+  .sig-pill { font-size: 0.7rem; font-weight: 700; padding: 3px 8px; border-radius: 999px; text-transform: uppercase; letter-spacing: .03em; }
+  details { margin-top: 10px; font-size: 0.88rem; }
+  .tmeta { font-size: 0.88rem; margin-top: 10px; line-height: 1.45; }
+  .tmeta ul { margin: 6px 0; padding-left: 1.2rem; }
+  .deep { margin-top: 8px; white-space: pre-wrap; }
+  .mermaid { background: #fff; padding: 16px; border-radius: 8px; border: 1px solid #ddd; margin: 12px 0; overflow: auto; }
+  .note { font-size: 0.85rem; color: #555; font-style: italic; }
+  .appendix .ref-block { margin-bottom: 1.5rem; }
+</style>
+</head>
+<body>
+  <h1>Threat assessment</h1>
+  <p class="meta">Generated 2026-03-31T02:36:11.467Z · Root <code>/Users/vishal/go/src/github.com/vdparikh/ThreatLensAI/packages/cli</code></p>
+  <p>ThreatLensAI — validate against live architecture before production sign-off.</p>
+
+  <h2>Executive summary</h2>
+  <div class="grid2">
+    <table class="data"><thead><tr><th>STRIDE</th><th>Count</th></tr></thead><tbody><tr><td>S (Spoofing)</td><td style="text-align:right">1</td></tr><tr><td>T (Tampering)</td><td style="text-align:right">1</td></tr><tr><td>R (Repudiation)</td><td style="text-align:right">0</td></tr><tr><td>I (Information disclosure)</td><td style="text-align:right">1</td></tr><tr><td>D (Denial of service)</td><td style="text-align:right">1</td></tr><tr><td>E (Elevation of privilege)</td><td style="text-align:right">1</td></tr></tbody></table>
+    <table class="data"><thead><tr><th>Severity</th><th>Count</th></tr></thead><tbody><tr><td>MEDIUM</td><td style="text-align:right">5</td></tr></tbody></table>
+  </div>
+  <p class="note">5 threats modeled (heuristic index).</p>
+
+  
+
+  <h2>Data flows and trust boundaries</h2>
+  <p class="note">Generated from repository context (LLM).</p>
+  <table class="data"><thead><tr><th>Boundary / flow</th><th>From</th><th>To</th></tr></thead><tbody><tr><td>Client</td><td>gRPC Surface</td><td>Store</td></tr><tr><td>Store</td><td>DB</td><td>HSM/KMS</td></tr></tbody></table>
+
+  <h2>Threat sources</h2>
+  <p class="note">Tailored to this application (LLM).</p>
+  <table class="data"><thead><tr><th>Category</th><th>Description</th><th>Example</th></tr></thead><tbody><tr><td>Client</td><td>Client that makes requests to the gRPC surface</td><td></td></tr><tr><td>Store</td><td>Store that holds sensitive data</td><td></td></tr></tbody></table>
+
+  
+
+  <h2>Threat catalog</h2>
+  
+      <article class="card">
+        <header class="card-h">
+          <h3>S1 — Spoofing gRPC Authentication</h3>
+          <span class="sev med">MEDIUM</span>
+          <span class="stride" title="Spoofing">S</span>
+        </header>
+        <p class="desc">An attacker sends a spoofed authentication token to the gRPC surface, causing it to accept a request from an unauthorized client.</p>
+        <div class="pills"><span class="pill action">Verify gRPC authentication token validity</span><span class="pill action">Implement token validation using a secure secret store</span></div>
+        <details><summary>Deep-dive (LLM)</summary><div class="deep">### Attack path
+
+System model is limited for this threat — An attacker sends a spoofed authentication token to the gRPC surface.
+
+### Code review focus
+
+- Check that grpc package has proper auth mechanisms in place
+
+### Detection and monitoring
+
+- Log authentication tokens
+- Monitor request headers for suspicious values</div></details>
+      </article>
+      <article class="card">
+        <header class="card-h">
+          <h3>T1 — Tampering with gRPC Payloads</h3>
+          <span class="sev med">MEDIUM</span>
+          <span class="stride" title="Tampering">T</span>
+        </header>
+        <p class="desc">An attacker modifies the payload of a gRPC request to inject malicious data, causing the server to return incorrect results.</p>
+        
+        <details><summary>Deep-dive (LLM)</summary><div class="deep">### Attack path
+
+System model is limited for this threat — An attacker modifies the payload of a gRPC request.
+
+### Code review focus
+
+- Validate and sanitize incoming gRPC payloads
+
+### Detection and monitoring
+
+- Monitor request payloads for modifications
+- Log changes to request data</div></details>
+      </article>
+      <article class="card">
+        <header class="card-h">
+          <h3>I1 — Information Disclosure in DB Store</h3>
+          <span class="sev med">MEDIUM</span>
+          <span class="stride" title="Information disclosure">I</span>
+        </header>
+        <p class="desc">An attacker gains access to the database store, causing sensitive data to be exposed.</p>
+        
+        <details><summary>Deep-dive (LLM)</summary><div class="deep">### Attack path
+
+System model is limited for this threat — An attacker gains access to the database store.
+
+### Code review focus
+
+- Ensure proper authorization and validation on database queries
+
+### Detection and monitoring
+
+- Monitor database logs for unauthorized access
+- Log database query attempts</div></details>
+      </article>
+      <article class="card">
+        <header class="card-h">
+          <h3>D1 — Denial of Service via gRPC</h3>
+          <span class="sev med">MEDIUM</span>
+          <span class="stride" title="Denial of service">D</span>
+        </header>
+        <p class="desc">An attacker sends a large amount of data to the gRPC surface, causing it to become unresponsive.</p>
+        
+        <details><summary>Deep-dive (LLM)</summary><div class="deep">### Attack path
+
+System model is limited for this threat — An attacker sends a large amount of data to the gRPC surface.
+
+### Code review focus
+
+- Implement rate limiting on gRPC requests
+
+### Detection and monitoring
+
+- Monitor request rates and counts
+- Log high-rate or high-volume requests</div></details>
+      </article>
+      <article class="card">
+        <header class="card-h">
+          <h3>E1 — Elevation of Privilege via HSM/KMS</h3>
+          <span class="sev med">MEDIUM</span>
+          <span class="stride" title="Elevation of privilege">E</span>
+        </header>
+        <p class="desc">An attacker gains access to the HSM/KMS, causing it to be used for unauthorized purposes.</p>
+        
+        <details><summary>Deep-dive (LLM)</summary><div class="deep">### Attack path
+
+System model is limited for this threat — An attacker gains access to the HSM/KMS.
+
+### Code review focus
+
+- Implement proper authorization and validation on HSM/KMS operations
+
+### Detection and monitoring
+
+- Monitor HSM/KMS logs for unauthorized access
+- Log HSM/KMS operation attempts</div></details>
+      </article>
+
+  <section class="appendix"><h2>STRIDE reference</h2><section class="ref-block"><h4>S — Spoofing</h4><p>Spoofing: attacks on identity and authenticity of actors, services, or messages.</p><table class="data"><thead><tr><th>CWE</th><th>Name</th></tr></thead><tbody><tr><td>CWE-290</td><td>Authentication Bypass by Spoofing</td></tr><tr><td>CWE-346</td><td>Origin Validation Error</td></tr></tbody></table><ul><li><a href="https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html">OWASP Auth Cheat Sheet</a></li></ul></section><section class="ref-block"><h4>T — Tampering</h4><p>Tampering: unauthorized modification of data, code, or configuration.</p><table class="data"><thead><tr><th>CWE</th><th>Name</th></tr></thead><tbody><tr><td>CWE-345</td><td>Insufficient Verification of Data Authenticity</td></tr><tr><td>CWE-472</td><td>External Control of Assumed-Immutable Web Parameter</td></tr></tbody></table><ul><li><a href="https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html">OWASP Data Validation</a></li></ul></section><section class="ref-block"><h4>R — Repudiation</h4><p>Repudiation: inability to prove who did what; logging and non-repudiation gaps.</p><table class="data"><thead><tr><th>CWE</th><th>Name</th></tr></thead><tbody><tr><td>CWE-223</td><td>Omission of Security-relevant Information</td></tr><tr><td>CWE-778</td><td>Insufficient Logging</td></tr></tbody></table><ul><li><a href="https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html">OWASP Logging</a></li></ul></section><section class="ref-block"><h4>I — Information disclosure</h4><p>Information disclosure: exposure of sensitive data in transit, at rest, or via errors.</p><table class="data"><thead><tr><th>CWE</th><th>Name</th></tr></thead><tbody><tr><td>CWE-200</td><td>Exposure of Sensitive Information</td></tr><tr><td>CWE-359</td><td>Exposure of Private Personal Information</td></tr></tbody></table><ul><li><a href="https://owasp.org/Top10/A02_2021-Cryptographic_Failures/">OWASP Top 10 A02</a></li></ul></section><section class="ref-block"><h4>D — Denial of service</h4><p>Denial of service: availability attacks against resources, queues, or dependencies.</p><table class="data"><thead><tr><th>CWE</th><th>Name</th></tr></thead><tbody><tr><td>CWE-400</td><td>Uncontrolled Resource Consumption</td></tr><tr><td>CWE-770</td><td>Allocation of Resources Without Limits</td></tr></tbody></table><ul><li><a href="https://cheatsheetseries.owasp.org/cheatsheets/Denial_of_Service_Cheat_Sheet.html">OWASP DoS Prevention</a></li></ul></section><section class="ref-block"><h4>E — Elevation of privilege</h4><p>Elevation of privilege: gaining capabilities beyond intended authorization.</p><table class="data"><thead><tr><th>CWE</th><th>Name</th></tr></thead><tbody><tr><td>CWE-269</td><td>Improper Privilege Management</td></tr><tr><td>CWE-285</td><td>Improper Authorization</td></tr></tbody></table><ul><li><a href="https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html">OWASP Authorization</a></li></ul></section></section>
+
+  <h2>Disclaimer</h2>
+  <p class="note">Automated models are incomplete; use as a starting point for human review.</p>
+  
+</body>
+</html>

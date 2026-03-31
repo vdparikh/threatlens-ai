@@ -1,0 +1,32 @@
+{
+  "exclude_paths": [
+    "node_modules",
+    "dist",
+    "build",
+    ".git",
+    "vendor",
+    ".venv",
+    "venv",
+    "__pycache__",
+    ".next",
+    "coverage",
+    "target"
+  ],
+  "include_extensions": [
+    ".ts",
+    ".tsx",
+    ".js",
+    ".jsx",
+    ".go",
+    ".py",
+    ".java",
+    ".yaml",
+    ".yml",
+    ".json",
+    ".md",
+    ".tf",
+    ".proto"
+  ],
+  "max_files": 10000,
+  "max_file_bytes": 524288
+}

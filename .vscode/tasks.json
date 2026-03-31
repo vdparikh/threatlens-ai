@@ -1,0 +1,14 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "threatlens: compile extension",
+      "type": "shell",
+      "command": "npm run compile -w threatlensai",
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "build",
+      "presentation": { "reveal": "silent" },
+      "problemMatcher": ["$tsc"]
+    }
+  ]
+}

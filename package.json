@@ -1,0 +1,15 @@
+{
+  "name": "threatlensai",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "ai"
+  ],
+  "scripts": {
+    "build": "npm run build -w @threatlensai/ai && npm run build -w @threatlensai/mcp-server && npm run build -w @threatlensai/cli && npm run compile -w threatlensai",
+    "test": "cd engine && go test ./... -count=1"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
