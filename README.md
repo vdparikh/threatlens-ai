@@ -3,6 +3,7 @@
 **Repo-grounded STRIDE threat modeling** for your IDE: analyze a codebase, merge deterministic static signals with LLM output, and ship **Markdown + HTML** assessments next to your code.
 
 Use it from **Cursor/Claude (MCP)**, the **CLI**, or the **VS Code extension** (including **Chat with threat report**).
+** Not Production Ready **
 
 ---
 
